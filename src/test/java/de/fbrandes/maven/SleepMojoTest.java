@@ -10,7 +10,7 @@ class SleepMojoTest {
     void shouldSleep() {
         //given
         SleepMojo sleepMojo = new SleepMojo();
-        sleepMojo.seconds = 3;
+        sleepMojo.setSeconds(3);
 
         // then
         Awaitility.await()
