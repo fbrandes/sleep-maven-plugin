@@ -123,6 +123,7 @@
                 <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
                 <sonar.organization>fbrandes</sonar.organization>
                 <sonar.projectKey>fbrandes_sleep-maven-plugin</sonar.projectKey>
+                <sonar.coverage.jacoco.xmlReportPath>${project.build.outputDirectory}/jacoco.exec</sonar.coverage.jacoco.xmlReportPath>
             </properties>
             <build>
                 <plugins>
