@@ -16,15 +16,15 @@ import java.time.Duration;
 public class SleepMojo extends AbstractMojo {
     private static final Logger LOGGER = LoggerFactory.getLogger(SleepMojo.class);
 
-    @Parameter(property = "hours", defaultValue = "0L")
+    @Parameter(property = "hours", defaultValue = "0")
     private long hours;
-    @Parameter(property = "minutes", defaultValue = "0L")
+    @Parameter(property = "minutes", defaultValue = "0")
     private long minutes;
-    @Parameter(property = "seconds", defaultValue = "0L")
+    @Parameter(property = "seconds", defaultValue = "0")
     private long seconds;
-    @Parameter(property = "millis", defaultValue = "0L")
+    @Parameter(property = "millis", defaultValue = "0")
     private long millis;
-    @Parameter(property = "nanos", defaultValue = "0L")
+    @Parameter(property = "nanos", defaultValue = "0")
     private long nanos;
 
     public void execute() throws MojoExecutionException {

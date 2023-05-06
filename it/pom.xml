@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>de.fbrandes.maven</groupId>
+        <artifactId>sleep-maven-plugin-parent</artifactId>
+        <version>0.1.1-SNAPSHOT</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>sleep-maven-plugin-it</artifactId>
+
+    <properties>
+        <maven.install.skip>true</maven.install.skip>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>de.fbrandes.maven</groupId>
+                <artifactId>sleep-maven-plugin</artifactId>
+                <version>${project.parent.version}</version>
+                <executions>
+                    <execution>
+                        <id>wait after compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>sleep</goal>
+                        </goals>
+                        <configuration>
+                            <seconds>2</seconds>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>wait before test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>sleep</goal>
+                        </goals>
+                        <configuration>
+                            <seconds>3</seconds>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
