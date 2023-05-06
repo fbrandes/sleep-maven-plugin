@@ -1,5 +1,6 @@
 package de.fbrandes.maven;
 
+import lombok.Setter;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -8,28 +9,29 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Duration;
-
-@Mojo(name = "sleep", defaultPhase = LifecyclePhase.NONE)
+@Setter
+@Mojo(name = "sleep", defaultPhase = LifecyclePhase.NONE, threadSafe = true)
 public class SleepMojo extends AbstractMojo {
     private static final Logger LOGGER = LoggerFactory.getLogger(SleepMojo.class);
 
-    @Parameter(property = "hours")
-    long hours = 0L;
-    @Parameter(property = "minutes")
-    long minutes = 0L;
-    @Parameter(property = "seconds")
-    long seconds = 0L;
-    @Parameter(property = "millis")
-    long millis = 0L;
+    @Parameter(property = "hours", defaultValue = "0L")
+    private long hours;
+    @Parameter(property = "minutes", defaultValue = "0L")
+    private long minutes;
+    @Parameter(property = "seconds", defaultValue = "0L")
+    private long seconds;
+    @Parameter(property = "millis", defaultValue = "0L")
+    private long millis;
 
     public void execute() throws MojoExecutionException {
         try {
-            long sleepDuration = Duration.ofHours(hours)
-                    .plusMinutes(minutes)
-                    .plusSeconds(seconds)
-                    .plusMillis(millis)
-                    .toMillis();
+            SleepConfiguration sleepConfiguration = SleepConfiguration.builder()
+                    .minutes(minutes)
+                    .seconds(seconds)
+                    .millis(millis)
+                    .build();
+
+            long sleepDuration = sleepConfiguration.getDuration().toMillis();
 
             LOGGER.info("Sleeping for {} milliseconds", sleepDuration);
             Thread.sleep(sleepDuration);
