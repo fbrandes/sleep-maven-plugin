@@ -9,6 +9,22 @@
     <version>0.1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <description>Maven plugin that pauses the build for a specified amount of time</description>
+    <url>https://github.com/fbrandes/sleep-maven-plugin</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/fbrandes/sleep-maven-plugin.git</connection>
+        <developerConnection>scm:git:ssh://github.com:fbrandes/sleep-maven-plugin.git</developerConnection>
+        <url>https://github.com/fbrandes/sleep-maven-plugin/tree/main</url>
+    </scm>
+
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -92,6 +108,31 @@
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.3.1</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.6.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>1.6.13</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>3.0.1</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -153,7 +194,8 @@
                 <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
                 <sonar.organization>fbrandes</sonar.organization>
                 <sonar.projectKey>fbrandes:sleep-maven-plugin</sonar.projectKey>
-                <sonar.coverage.jacoco.xmlReportPath>${project.build.outputDirectory}/jacoco.exec</sonar.coverage.jacoco.xmlReportPath>
+                <sonar.coverage.jacoco.xmlReportPath>${project.build.outputDirectory}/jacoco.exec
+                </sonar.coverage.jacoco.xmlReportPath>
             </properties>
             <build>
                 <plugins>
