@@ -45,7 +45,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Deploy
-        run: mvn -B clean deploy -Prelease -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}  -DskipTests -DskipITs
+        run: mvn -B clean deploy -Prelease -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -s .ci/settings.xml -DskipTests -DskipITs
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
