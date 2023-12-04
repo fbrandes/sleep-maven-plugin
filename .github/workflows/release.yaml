@@ -23,6 +23,8 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
+      - name: Build Release Artiifact
+        run: mvn clean package -DskipTests
       - name: Perform Release
         run: mvn -B release:prepare release:perform -s .ci/settings.xml
         env:
