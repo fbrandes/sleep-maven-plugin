@@ -45,6 +45,14 @@ jobs:
           cat <(echo -e "${{ secrets.GPG_PRIVATE_KEY}}") | gpg --batch --import
           # Verify gpg secret key
           gpg --list-secret-keys --keyid-format LONG
+      - name: Set up Maven Central Repository
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          server-id: ossrh
+          server-username: ${{ secrets.OSSRH_USERNAME }}
+          server-password: ${{ secrets.OSSRH_TOKEN }}
       - name: Deploy
         run: mvn -B clean deploy -Prelease -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}  -DskipTests -DskipITs
         env:
