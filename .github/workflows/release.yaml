@@ -28,7 +28,7 @@ jobs:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
       - name: Build Release Artiifact
-        run: mvn clean package -DskipTests -DskipITs -f parent/ -
+        run: mvn clean package -DskipTests -DskipITs -f parent/
       - name: Perform Release
         run: mvn -B -f parent/ release:prepare release:perform -DpushChanges=false -s .ci/settings.xml
         env:
