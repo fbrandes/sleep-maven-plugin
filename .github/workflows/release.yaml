@@ -27,9 +27,8 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
-      - name: Perform Release
-        run: mvn -B -f parent/ -DskipTests -DskipITs -s .ci/settings.xml deploy
+      - name: Deploy
+        run: mvn -B clean deploy -Prelease -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -s .ci/settings.xml -DskipTests -DskipITs
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
