@@ -6,7 +6,7 @@
 
     <groupId>de.fbrandes.maven</groupId>
     <artifactId>sleep-maven-plugin-parent</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <description>Maven plugin that pauses the build for a specified amount of time</description>
