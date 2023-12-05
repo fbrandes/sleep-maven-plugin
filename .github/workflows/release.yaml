@@ -27,10 +27,8 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
-      - name: Build Release Artiifact
-        run: mvn clean package -DskipTests -DskipITs -f parent/
       - name: Perform Release
-        run: mvn -B -f parent/ release:prepare release:perform -DpushChanges=false -s .ci/settings.xml
+        run: mvn -B -f parent/ release:prepare release:perform -DpushChanges=false -DskipTests -DskipITs -s .ci/settings.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
