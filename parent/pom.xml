@@ -21,7 +21,7 @@
 
     <scm>
         <connection>scm:git:git://github.com/fbrandes/sleep-maven-plugin.git</connection>
-        <developerConnection>scm:git:ssh://github.com:fbrandes/sleep-maven-plugin.git</developerConnection>
+        <developerConnection>scm:git:ssh://github.com/fbrandes/sleep-maven-plugin.git</developerConnection>
         <url>https://github.com/fbrandes/sleep-maven-plugin/tree/main</url>
     </scm>
 
