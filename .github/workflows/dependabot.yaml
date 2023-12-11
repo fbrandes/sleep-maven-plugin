@@ -1,12 +1,12 @@
-name: Build plugin
+name: Dependabot buuild
 
 on:
   push:
-    branches-ignore:
+    branches:
       - 'dependabot/**'
 
 jobs:
-  build:
+  dependabot-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
