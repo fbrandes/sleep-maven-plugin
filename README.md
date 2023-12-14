@@ -22,7 +22,7 @@ implementation 'de.fbrandes.maven:sleep-maven-plugin:1.1.0'
 ```
 
 # Usage
-You can either call the sleep goaal directly and pass an amount to sleep, like this: 
+You can either call the sleep goal directly and pass an amount to sleep, like this: 
 ```bash 
 mvn sleep:sleep -Dseconds=30
 ```
