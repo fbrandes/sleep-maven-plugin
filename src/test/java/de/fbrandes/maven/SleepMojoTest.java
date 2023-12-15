@@ -9,12 +9,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 class SleepMojoTest {
     private final Logger testLogger = (Logger) LoggerFactory.getLogger(SleepMojo.class);
@@ -45,7 +43,16 @@ class SleepMojoTest {
     }
 
     @ParameterizedTest
-    @MethodSource("sleepConfig")
+    @CsvSource({
+            "0, 0, 0, 0, 0, No sleep configured",
+            "1, 0, 0, 1, 1, Sleeping for 1h 1.000001ms",
+            "0, 1, 0, 1, 1, Sleeping for 1m 1.000001ms",
+            "0, 0, 1, 1, 1, Sleeping for 1s 1.000001ms",
+            "0, 0, 0, 1, 1, Sleeping for 1.000001ms",
+            "0, 0, 0, 0, 1, Sleeping for 0.000001ms",
+            "0, 0, 0, 0, 123456, Sleeping for 0.123456ms",
+            "0, 0, 0, 1, 0, Sleeping for 1m"
+    })
     void shouldSleepForGivenAmountOfTime(int hours, int minutes, int seconds, int millis, int nanos, String expectedLog) {
         SleepMojo sleepMojo = new SleepMojo();
         sleepMojo.setHours(hours);
@@ -61,21 +68,16 @@ class SleepMojoTest {
         }
     }
 
-    public static Stream<Arguments> sleepConfig() {
-        return Stream.of(
-                Arguments.of(0, 0, 0, 0, 0, "No sleep configured"),
-                Arguments.of(1, 0, 0, 1, 1, "Sleeping for 1h 1.000001ms"),
-                Arguments.of(0, 1, 0, 1, 1, "Sleeping for 1m 1.000001ms"),
-                Arguments.of(0, 0, 1, 1, 1, "Sleeping for 1s 1.000001ms"),
-                Arguments.of(0, 0, 0, 1, 1, "Sleeping for 1.000001ms"),
-                Arguments.of(0, 0, 0, 0, 1, "Sleeping for 0.000001ms"),
-                Arguments.of(0, 0, 0, 0, 123456, "Sleeping for 0.123456ms"),
-                Arguments.of(0, 0, 0, 1, 0, "Sleeping for 1ms")
-        );
-    }
-
     @ParameterizedTest
-    @MethodSource("millisAndNanosSleepConfig")
+    @CsvSource({
+            "0, 0, 0, 0, 0, No sleep configured",
+            "1, 0, 0, 0, 0, Sleeping for 1h",
+            "0, 1, 0, 0, 0, Sleeping for 1m",
+            "0, 0, 1, 0, 0, Sleeping for 1s",
+            "0, 0, 0, 1, 0, Sleeping for 1ms",
+            "0, 0, 0, 0, 1, Sleeping for 1n",
+            "1, 1, 1, 1, 1, Sleeping for 1h 1m 1s 1.000001ms"
+    })
     void shouldSleepCorrectAmountGivenMillisAndNanos(int hours, int minutes, int seconds, int millis, int nanos, String expectedLog) {
         SleepMojo sleepMojo = new SleepMojo();
         sleepMojo.setHours(hours);
@@ -91,20 +93,14 @@ class SleepMojoTest {
         }
     }
 
-    public static Stream<Arguments> millisAndNanosSleepConfig() {
-        return Stream.of(
-                Arguments.of(0, 0, 0, 0, 0, "No sleep configured"),
-                Arguments.of(1, 0, 0, 0, 0, "Sleeping for 1h"),
-                Arguments.of(0, 1, 0, 0, 0, "Sleeping for 1m"),
-                Arguments.of(0, 0, 1, 0, 0, "Sleeping for 1s"),
-                Arguments.of(0, 0, 0, 1, 0, "Sleeping for 1ms"),
-                Arguments.of(0, 0, 0, 0, 1, "Sleeping for 1n"),
-                Arguments.of(1, 1, 1, 1, 1, "Sleeping for 1h 1m 1s 1.000001ms")
-        );
-    }
-
     @ParameterizedTest
-    @MethodSource("negativeDurations")
+    @CsvSource({
+            "-1, 0, 0, 0, 0",
+            "0, -1, 0, 0, 0",
+            "0, 0, -1, 0, 0",
+            "0, 0, 0, -1, 0",
+            "0, 0, 0, 0, -1"
+    })
     void shouldThrowWhenGivenNegativeValues(int hours, int minutes, int seconds, int millis, int nanos) {
         SleepMojo sleepMojo = new SleepMojo();
         sleepMojo.setHours(hours);
@@ -114,16 +110,6 @@ class SleepMojoTest {
         sleepMojo.setNanos(nanos);
 
         Assertions.assertThrows(MojoExecutionException.class, sleepMojo::execute);
-    }
-
-    public static Stream<Arguments> negativeDurations() {
-        return Stream.of(
-                Arguments.of(-1, 0, 0, 0, 0),
-                Arguments.of(0, -1, 0, 0, 0),
-                Arguments.of(0, 0, -1, 0, 0),
-                Arguments.of(0, 0, 0, -1, 0),
-                Arguments.of(0, 0, 0, 0, -1)
-        );
     }
 
     @AfterEach

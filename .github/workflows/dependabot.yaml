@@ -1,4 +1,4 @@
-name: Dependabot buuild
+name: Dependabot build
 
 on:
   push:
