@@ -13,12 +13,12 @@ Maven:
 <dependency>
     <groupId>de.fbrandes.maven</groupId>
     <artifactId>sleep-maven-plugin</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 Gradle
 ```groovy
-implementation 'de.fbrandes.maven:sleep-maven-plugin:1.1.0'
+implementation 'de.fbrandes.maven:sleep-maven-plugin:1.2.0'
 ```
 
 # Usage
@@ -32,7 +32,7 @@ Or you can create an execution if you want to define a sleep during your build, 
 <plugin>
     <groupId>de.fbrandes.maven</groupId>
     <artifactId>sleep-maven-plugin</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <executions>
         <execution>
             <id>wait after compile</id>
